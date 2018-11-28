@@ -40,13 +40,18 @@ class HangpersonApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
-    redirect '/new' if @game.word.empty?
-    returned_value = @game.guess(letter)
     
-    redirect '/lose' if @game.check_win_or_lose == :lose
-    redirect '/win' if @game.check_win_or_lose == :win 
-
-    flash[:message] = 'You have already used that letter.' unless returned_value
+    redirect '/new' if @game.word.empty?
+    begin
+      returned_value = @game.guess(letter)
+    rescue ArgumentError
+      flash[:message] = 'You have entered an invalid parameter.' unless returned_value
+    else
+      redirect '/lose' if @game.check_win_or_lose == :lose
+      redirect '/win' if @game.check_win_or_lose == :win 
+  
+      flash[:message] = 'You have already used that letter.' unless returned_value
+    end
     redirect '/show'
   end
   
