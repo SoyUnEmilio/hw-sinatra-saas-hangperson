@@ -20,6 +20,7 @@ When /^I guess "(.*)"(?: again)?$/ do |letter|
   letter.downcase!
   fill_in("guess", :with => letter)
   click_button("Guess!")
+  #save_and_open_page
 end
 
 When /^I make the following guesses:(.*)$/ do |guesses|
@@ -83,4 +84,3 @@ When /^(?:|I )press "([^\"]*)"(?: within "([^\"]*)")?$/ do |button, selector|
     click_button(button)
   end
 end
-
