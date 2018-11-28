@@ -46,7 +46,7 @@ class HangpersonApp < Sinatra::Base
     redirect '/lose' if @game.check_win_or_lose == :lose
     redirect '/win' if @game.check_win_or_lose == :win 
 
-    flash[:message] = 'You have already used that letter' unless returned_value
+    flash[:message] = 'You have already used that letter.' unless returned_value
     redirect '/show'
   end
   
@@ -66,7 +66,7 @@ class HangpersonApp < Sinatra::Base
     ### YOUR CODE HERE ###
     redirect '/new' if @game.word.empty?
     status = @game.check_win_or_lose
-    redirect '/new' unless status == :win 
+    redirect '/show' unless status == :win 
     erb :win if status == :win # You may change/remove this line
   end
   
@@ -74,7 +74,7 @@ class HangpersonApp < Sinatra::Base
     ### YOUR CODE HERE ###
     redirect '/new' if @game.word.empty?
     status = @game.check_win_or_lose
-    redirect '/new' unless status == :lose
+    redirect '/show' unless status == :lose
     erb :lose if status == :lose # You may change/remove this line
   end
   
