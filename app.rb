@@ -45,7 +45,7 @@ class HangpersonApp < Sinatra::Base
     begin
       returned_value = @game.guess(letter)
     rescue ArgumentError
-      flash[:message] = 'You have entered an invalid parameter.' unless returned_value
+      flash[:message] = 'Invalid guess.' unless returned_value
     else
       redirect '/lose' if @game.check_win_or_lose == :lose
       redirect '/win' if @game.check_win_or_lose == :win 
