@@ -40,6 +40,7 @@ class HangpersonApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
+    redirect '/new' if @game.word.empty?
     returned_value = @game.guess(letter)
     
     redirect '/lose' if @game.check_win_or_lose == :lose
@@ -56,21 +57,24 @@ class HangpersonApp < Sinatra::Base
   # wrong_guesses and word_with_guesses from @game.
   get '/show' do
     ### YOUR CODE HERE ###
+    redirect '/new' if @game.word.empty?
     status = @game.check_win_or_lose
     erb :show if status == :play # You may change/remove this line
   end
   
   get '/win' do
     ### YOUR CODE HERE ###
+    redirect '/new' if @game.word.empty?
     status = @game.check_win_or_lose
-    redirect '/show' unless status == :win
+    redirect '/new' unless status == :win 
     erb :win if status == :win # You may change/remove this line
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
+    redirect '/new' if @game.word.empty?
     status = @game.check_win_or_lose
-    redirect '/show' unless status == :lose
+    redirect '/new' unless status == :lose
     erb :lose if status == :lose # You may change/remove this line
   end
   
